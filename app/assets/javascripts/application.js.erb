@@ -528,12 +528,12 @@ onPageLoad(() => {
     Lobster.fetchURLTitle(event.target);
   });
 
-  on('click', 'li.story a.voters', (event) => {
+  on('click', 'li.story a.story-voter', (event) => {
     event.preventDefault();
     Lobster.upvoteStory(event.target);
   });
 
-  on('click', 'li.story div.score', (event) => {
+  on('click', 'li.story div.story-voter', (event) => {
     event.preventDefault();
     Lobster.upvoteStory(event.target);
   });
@@ -649,7 +649,12 @@ onPageLoad(() => {
     Lobster.removeFlagModal()
   });
 
-  on("click", '.comment a.upvoter', (event) => {
+  on("click", '.comment a.comment-voter', (event) => {
+    event.preventDefault();
+    Lobster.upvoteComment(event.target);
+  });
+
+  on("click", '.comment div.comment-voter', (event) => {
     event.preventDefault();
     Lobster.upvoteComment(event.target);
   });

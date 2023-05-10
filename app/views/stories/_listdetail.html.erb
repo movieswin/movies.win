@@ -16,12 +16,12 @@ class="story <%= story.vote && story.vote[:vote] == 1 ? "upvoted" : "" %>
 <%= story.is_deleted? ? "deleted" : "" %>">
 <div class="story_liner h-entry">
     <% if @user %>
-      <a class="voters" title="Add upvote">
-        <div class="score"><%= story.show_score_to_user?(@user) ? story.score : '~' %></div>
+      <a class="voters story-voter" title="Add upvote">
+        <div class="score story-voter"><%= story.show_score_to_user?(@user) ? story.score : '~' %></div>
       </a>
     <% else %>
-      <a class="voters" title="Add upvote" href=<%= login_path %>>
-        <div class="score"><%= story.show_score_to_user?(@user) ? story.score : '~' %></div>
+      <a class="voters story-voter" title="Add upvote" href=<%= login_path %>>
+        <div class="score story-voter"><%= story.show_score_to_user?(@user) ? story.score : '~' %></div>
       </a>
     <% end %>
   <div class="details">

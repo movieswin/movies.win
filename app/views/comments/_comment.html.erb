@@ -19,14 +19,15 @@ class="comment <%= comment.current_vote ? (comment.current_vote[:vote] == 1 ?
   <% if !comment.is_gone? %>
     <% can_flag = @user && @user.can_flag?(comment) %>
     <% score_display = comment.score_for_user(@user) %>
-    <div class="voters">
-      <% if @user %>
-        <a class="upvoter"></a>
-      <% else %>
-        <%= link_to "", login_path, :class => "upvoter" %>
-      <% end %>
-      <div class="score"><%= score_display %></div>
-    </div>
+    <% if @user %>
+      <a class="voters comment-voter" title="Add upvote">
+        <div class="score comment-voter"><%= score_display %></div>
+      </a>
+    <% else %>
+      <a class="voters comment-voter" title="Add upvote" href=<%= login_path %>>
+        <div class="score comment-voter"><%= score_display %></div>
+      </a>
+    <% end %>
     <div class="comment_parent_tree_line
       <%= can_flag ? "can_flag" : "" %>
       <%= score_display != "&nbsp;" ? "score_shown" : "" %>
