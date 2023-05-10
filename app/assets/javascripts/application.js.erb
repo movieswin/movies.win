@@ -61,7 +61,7 @@ const fetchWithCSRF = (url, params) => {
   params['headers'] = params['headers'] || new Headers;
   params['headers'].append('X-CSRF-Token', csrfToken());
   return fetch(url, params);
-} 
+}
 
 const removeExtraInputs = () => {
   // This deletion will resovle a bug that creates an extra hidden input when rendering the comment elements.
@@ -150,7 +150,7 @@ class _LobstersFunction {
 
     // Check for common prefixes like "ask lobsters:", remove it, and add the appropriate tag.
     const m = title.match(/^(show|ask) lobste\.?rs:? (.+)$/i);
-    if (m) { 
+    if (m) {
       const titleEl = document.getElementById('story_title');
       Lobster.tom.addItem(m[1].toLowerCase());
       titleEl.value = m[2];
@@ -528,7 +528,12 @@ onPageLoad(() => {
     Lobster.fetchURLTitle(event.target);
   });
 
-  on('click', 'li.story a.upvoter', (event) => {
+  on('click', 'li.story a.voters', (event) => {
+    event.preventDefault();
+    Lobster.upvoteStory(event.target);
+  });
+
+  on('click', 'li.story div.score', (event) => {
     event.preventDefault();
     Lobster.upvoteStory(event.target);
   });
@@ -648,11 +653,11 @@ onPageLoad(() => {
     event.preventDefault();
     Lobster.upvoteComment(event.target);
   });
-  
+
   on('click', 'button.comment-preview', (event) => {
     Lobster.previewComment(parentSelector(event.target, 'form'));
   });
-  
+
   on('submit', '.comment_form_container form', (event) => {
     event.preventDefault();
     Lobster.postComment(event.target);
@@ -716,7 +721,7 @@ onPageLoad(() => {
 
   on('click', 'a.comment_moderator', (event) => {
     const reason = prompt("Moderation reason:");
-    if (reason == null || reason == '') 
+    if (reason == null || reason == '')
       return false;
 
     const formData = new FormData();

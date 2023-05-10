@@ -15,14 +15,15 @@ class="story <%= story.vote && story.vote[:vote] == 1 ? "upvoted" : "" %>
 <%= story.is_saved_by_cur_user ? "saved" : "" %>
 <%= story.is_deleted? ? "deleted" : "" %>">
 <div class="story_liner h-entry">
-  <div class="voters">
-    <div style="color: white; font-size: 12px; font-weight:bold; text-shadow: 1px 0 0 #ac130d, 0 -1px 0 #ac130d, 0 1px 0 #ac130d, -1px 0 0 #ac130d;" class="score"><%= story.show_score_to_user?(@user) ? story.score : '~' %></div>
     <% if @user %>
-      <a class="upvoter" title="Add upvote"></a>
+      <a class="voters" title="Add upvote">
+        <div class="score"><%= story.show_score_to_user?(@user) ? story.score : '~' %></div>
+      </a>
     <% else %>
-      <%= link_to "", login_path, :class => "upvoter" %>
+      <a class="voters" title="Add upvote" href=<%= login_path %>>
+        <div class="score"><%= story.show_score_to_user?(@user) ? story.score : '~' %></div>
+      </a>
     <% end %>
-  </div>
   <div class="details">
     <span role="heading" aria-level="1" class="link h-cite u-repost-of">
       <% if story.can_be_seen_by_user?(@user) %>
