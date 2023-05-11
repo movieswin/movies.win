@@ -50,13 +50,66 @@ class="comment <%= comment.current_vote ? (comment.current_vote[:vote] == 1 ?
         <span class="merge"></span>
       <% end %>
 
-      <% if (@user && @user.show_avatars?) || !@user %>
-        <a href="/u/<%= comment.user.username %>"><%=
-          avatar_img(comment.user, 16) %></a>
+      <% if !comment.previewing %>
+        <a class="copy-link" href="<%= comment.path %>">link</a>
+
+        <% if comment.is_editable_by_user?(@user) %>
+          \
+          <a tabindex="0" class="comment_editor">edit</a>
+        <% end %>
+
+        <% if comment.is_gone? && comment.is_undeletable_by_user?(@user) %>
+          \
+          <a tabindex="0" class="comment_undeletor" href="#c_<%= comment.short_id %>">undelete</a>
+        <% elsif !comment.is_gone? && comment.is_deletable_by_user?(@user) %>
+          \
+          <% if @user && @user.is_moderator? && @user.id != comment.user_id %>
+            <a tabindex="0" class="comment_moderator" href="#c_<%= comment.short_id %>">delete</a>
+          <% else %>
+            <a tabindex="0" class="comment_deletor" href="#c_<%= comment.short_id %>">delete</a>
+          <% end %>
+        <% elsif !comment.is_gone? && comment.is_disownable_by_user?(@user) %>
+          \
+          <a tabindex="0" class="comment-disowner" href="#">disown</a>
+        <% end %>
+
+        <% if can_flag && !flagged %>
+          <span class="dropdown_parent">
+            \ <a class="flagger">flag</a>
+          </span>
+        <% elsif flagged %>
+          \ <a class="flagger">unflag</a>
+        <% else %>
+          <span class="flagger flagger_stub"></span>
+        <% end %>
+
+        <% if @user && !comment.is_gone? && comment.story.accepting_comments? %>
+            \
+            <a tabindex="0" class="comment_replier" unselectable="on">reply</a>
+        <% end %>
+
+        <% if defined?(show_story) && show_story %>
+          \ on:
+          <a href="<%= comment.story.comments_path %>"><%= comment.story.title %></a>
+        <% end %>
+
+        <span class="reason">
+          <% if comment.flags > 0 &&
+          comment.show_score_to_user?(@user) &&
+          (comment.user_id == @user.try(:id) || @user.try("is_moderator?")) %>
+            <% if (s = comment.vote_summary_for_user(@user).downcase).present? %>
+              \ <%= s %>
+            <% end %>
+          <% elsif comment.current_vote && comment.current_vote[:vote] == -1 %>
+            \ -1
+            <%= Vote::ALL_COMMENT_REASONS[comment.current_vote[:reason]].downcase %>
+          <% end %>
+        </span>
       <% end %>
+      \
 
       <a href="/u/<%= comment.user.username %>"
-        class="<%= comment.html_class_for_user %>"><%=
+        class="<%= comment.html_class_for_user %>">@<%=
         comment.user.username %></a>
 
       <% if comment.hat %>
@@ -75,64 +128,6 @@ class="comment <%= comment.current_vote ? (comment.current_vote[:vote] == 1 ?
         <% is_unread ||= false %>
         <%= time_ago_in_words_label(comment.has_been_edited? ? comment.updated_at : comment.created_at) %>
         <%= raw "<span class='comment_unread'>(unread)</span>" if is_unread %>
-      <% end %>
-
-      <% if !comment.previewing %>
-        |
-        <a href="<%= comment.path %>">link</a>
-
-        <% if comment.is_editable_by_user?(@user) %>
-          |
-          <a tabindex="0" class="comment_editor">edit</a>
-        <% end %>
-
-        <% if comment.is_gone? && comment.is_undeletable_by_user?(@user) %>
-          |
-          <a tabindex="0" class="comment_undeletor" href="#c_<%= comment.short_id %>">undelete</a>
-        <% elsif !comment.is_gone? && comment.is_deletable_by_user?(@user) %>
-          |
-          <% if @user && @user.is_moderator? && @user.id != comment.user_id %>
-            <a tabindex="0" class="comment_moderator" href="#c_<%= comment.short_id %>">delete</a>
-          <% else %>
-            <a tabindex="0" class="comment_deletor" href="#c_<%= comment.short_id %>">delete</a>
-          <% end %>
-        <% elsif !comment.is_gone? && comment.is_disownable_by_user?(@user) %>
-          |
-          <a tabindex="0" class="comment-disowner" href="#">disown</a>
-        <% end %>
-
-        <% if can_flag && !flagged %>
-          <span class="dropdown_parent">
-            | <a class="flagger">flag</a>
-          </span>
-        <% elsif flagged %>
-          | <a class="flagger">unflag</a>
-        <% else %>
-          <span class="flagger flagger_stub"></span>
-        <% end %>
-
-        <% if @user && !comment.is_gone? && comment.story.accepting_comments? %>
-            |
-            <a tabindex="0" class="comment_replier" unselectable="on">reply</a>
-        <% end %>
-
-        <% if defined?(show_story) && show_story %>
-          | on:
-          <a href="<%= comment.story.comments_path %>"><%= comment.story.title %></a>
-        <% end %>
-
-        <span class="reason">
-          <% if comment.flags > 0 &&
-          comment.show_score_to_user?(@user) &&
-          (comment.user_id == @user.try(:id) || @user.try("is_moderator?")) %>
-            <% if (s = comment.vote_summary_for_user(@user).downcase).present? %>
-              | <%= s %>
-            <% end %>
-          <% elsif comment.current_vote && comment.current_vote[:vote] == -1 %>
-            | -1
-            <%= Vote::ALL_COMMENT_REASONS[comment.current_vote[:reason]].downcase %>
-          <% end %>
-        </span>
       <% end %>
     </div>
     <div role="heading" aria-level="3" class="comment_text">

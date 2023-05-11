@@ -654,6 +654,18 @@ onPageLoad(() => {
     Lobster.upvoteComment(event.target);
   });
 
+  on('click', '.comment a.copy-link', (event) => {
+    event.preventDefault();
+    const linkUrl = "<%= Rails.application.root_url %>" + event.target.getAttribute('href');
+    navigator.clipboard.writeText(linkUrl).then(() => {
+      /* clipboard successfully set */
+      console.log("GOT IT");
+    }, () => {
+    console.log("DIDN'T GET IT!");
+      /* clipboard write failed */
+    });
+  });
+
   on("click", '.comment div.comment-voter', (event) => {
     event.preventDefault();
     Lobster.upvoteComment(event.target);

@@ -35,7 +35,6 @@ public/sitemap*
 # templates to be created per-site
 app/views/about/404.*
 app/views/about/about.*
-app/views/about/chat.*
 app/views/about/privacy.*
 public/apple-touch-icon*
 public/favicon.ico

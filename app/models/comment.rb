@@ -372,9 +372,8 @@ class Comment < ApplicationRecord
       c.push "inactive_user"
     elsif self.user.is_new?
       c.push "new_user"
-    elsif self.story && self.story.user_is_author? &&
-          self.story.user_id == self.user_id
-      c.push "user_is_author"
+    else
+      c.push "active_user"
     end
 
     c.join("")

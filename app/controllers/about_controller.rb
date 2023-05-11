@@ -1,5 +1,5 @@
 class AboutController < ApplicationController
-  caches_page :about, :chat, if: CACHE_PAGE
+  caches_page :about, if: CACHE_PAGE
   before_action :show_title_h1, except: [:four_oh_four]
 
   def four_oh_four
@@ -19,16 +19,6 @@ class AboutController < ApplicationController
       render layout: 'application', html: ("<h1>A mystery.")
     end
     raise "Seriously, write your own about page." if @homeabout
-  end
-
-  def chat
-    begin
-      @title = "Chat"
-      render action: "chat"
-    rescue ActionView::MissingTemplate
-      render html: ("<h1>Don't speak. I know what you're thinking.</h1>"),
-        layout: 'application'
-    end
   end
 
   def privacy

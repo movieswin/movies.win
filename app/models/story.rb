@@ -554,8 +554,8 @@ class Story < ApplicationRecord
       c.push "inactive_user"
     elsif self.user.is_new?
       c.push "new_user"
-    elsif self.user_is_author?
-      c.push "user_is_author"
+    else
+      c.push "active_user"
     end
 
     c.join("")
