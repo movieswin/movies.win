@@ -80,7 +80,7 @@ class="story <%= story.vote && story.vote[:vote] == 1 ? "upvoted" : "" %>
 
             <%= time_ago_in_words_label(ms.created_at) %>
             <% if ms.is_editable_by_user?(@user) %>
-              <span> \ </span>
+              <span class="leading-slash"> \ </span>
               <a href="<%= edit_story_path(ms.short_id) %>" class="underline-on-hover">edit</a>
             <% end %>
           </span>
@@ -118,8 +118,8 @@ class="story <%= story.vote && story.vote[:vote] == 1 ? "upvoted" : "" %>
             <% end %>
           </span>
         <% end %>
-        <span> \ </span>
         <% if story.is_editable_by_user?(@user) %>
+          <span class="leading-slash"> \ </span>
           <a href="<%= edit_story_path(story.short_id) %>" class="underline-on-hover <%=
             story.has_suggestions? ? "story_has_suggestions" : "" %>">edit</a>
         <% end %>
@@ -189,6 +189,6 @@ class="story <%= story.vote && story.vote[:vote] == 1 ? "upvoted" : "" %>
   </div>
 </div>
 <a href="<%= story.comments_path %>" class="mobile_comments <%= story.comments_count == 0 ? "zero" : "" %>" style="display: none;">
-  <span><%= story.comments_count %></span>
+  <span class="comment-count"><%= story.comments_count %></span>
 </a>
 </li>
