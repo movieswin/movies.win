@@ -25,7 +25,7 @@ class="story <%= story.vote && story.vote[:vote] == 1 ? "upvoted" : "" %>
       </a>
     <% end %>
   <div class="details">
-    <span role="heading" aria-level="1" class="link h-cite u-repost-of">
+    <span role="heading" aria-level="1" class="link h-cite u-repost-of underline-on-hover">
       <% if story.can_be_seen_by_user?(@user) %>
         <a class="u-url" href="<%= story.url_or_comments_path %>" rel="ugc <%= story.send_referrer? ? '' : 'noreferrer' %>"><%= story.title %></a>
       <% end %>
@@ -45,7 +45,7 @@ class="story <%= story.vote && story.vote[:vote] == 1 ? "upvoted" : "" %>
         <% end %>
       </span>
       <% if story.domain.present? %>
-        <a class="domain" href="<%= domain_path(story.domain) %>"><%= story.domain.domain %></a>
+        <a class="domain underline-on-hover" href="<%= domain_path(story.domain) %>"><%= story.domain.domain %></a>
       <% end %>
 
       <% if defined?(single_story) && single_story %>
@@ -63,7 +63,7 @@ class="story <%= story.vote && story.vote[:vote] == 1 ? "upvoted" : "" %>
             <% end %>
           </span>
           <% if ms.domain_id.present? %>
-            <a class="domain" href="<%= domain_path(ms.domain) %>"><%= ms.domain.domain %></a>
+            <a class="domain underline-on-hover" href="<%= domain_path(ms.domain) %>"><%= ms.domain.domain %></a>
           <% end %>
           <span class="byline">
             <% if (@user && @user.show_avatars?) || !@user %>
@@ -75,13 +75,13 @@ class="story <%= story.vote && story.vote[:vote] == 1 ? "upvoted" : "" %>
             <% else %>
               <span> via </span>
             <% end %>
-            <a href="/u/<%= ms.user.username %>" class="u-author h-card <%=
+            <a href="/u/<%= ms.user.username %>" class="underline-on-hover u-author h-card <%=
               ms.html_class_for_user %>"><%= ms.user.username %></a>
 
             <%= time_ago_in_words_label(ms.created_at) %>
             <% if ms.is_editable_by_user?(@user) %>
               <span> | </span>
-              <a href="<%= edit_story_path(ms.short_id) %>">edit</a>
+              <a href="<%= edit_story_path(ms.short_id) %>" class="underline-on-hover">edit</a>
             <% end %>
           </span>
         <% end %>
@@ -108,7 +108,7 @@ class="story <%= story.vote && story.vote[:vote] == 1 ? "upvoted" : "" %>
         <% else %>
           <span> via </span>
         <% end %>
-        <a class="u-author h-card <%= story.html_class_for_user %>"><%=
+        <a class="underline-on-hover u-author h-card <%= story.html_class_for_user %>"><%=
           story.user.username %></a>
         <span> just now </span>
       <% else %>
@@ -117,19 +117,19 @@ class="story <%= story.vote && story.vote[:vote] == 1 ? "upvoted" : "" %>
         <% else %>
           <span> via </span>
         <% end %>
-        <a href="/u/<%= story.user.username %>" class="u-author h-card <%=
+        <a href="/u/<%= story.user.username %>" class="underline-on-hover u-author h-card <%=
           story.html_class_for_user %>"><%= story.user.username %></a>
 
         <%= time_ago_in_words_label(story.created_at) %>
 
         <% if story.is_editable_by_user?(@user) %>
           <span> | </span>
-          <a href="<%= edit_story_path(story.short_id) %>" class="<%=
+          <a href="<%= edit_story_path(story.short_id) %>" class="underline-on-hover <%=
             story.has_suggestions? ? "story_has_suggestions" : "" %>">edit</a>
         <% end %>
         <% if story.can_have_suggestions_from_user?(@user) %>
           <span> | </span><%= link_to "suggest", story_suggest_path(story.short_id),
-            :class => "suggester" %>
+            :class => "underline-on-hover suggester" %>
         <% end %>
         <% if !story.is_gone? && @user %>
           <% if @user && story.vote && story.vote[:vote] == -1 %>
@@ -138,32 +138,32 @@ class="story <%= story.vote && story.vote[:vote] == 1 ? "upvoted" : "" %>
           <% elsif @user && @user.can_flag?(story) %>
             <span> | </span>
             <span class="dropdown_parent">
-              <a class="flagger">flag</a>
+              <a class="underline-on-hover flagger">flag</a>
             </span>
           <% end %>
           <% if story.is_hidden_by_cur_user %>
             <span> | </span><%= link_to "unhide", story_unhide_path(story.short_id),
-              :class => "hider" %>
+              :class => "underline-on-hover hider" %>
           <% else %>
             <span> | </span><%= link_to "hide", story_hide_path(story.short_id),
-              :class => "hider" %>
+              :class => "underline-on-hover hider" %>
           <% end %>
           <% if defined?(single_story) && single_story && story.hider_count > 0 %>
             (hidden by <%= pluralize(story.hider_count, "user") %>)
           <% end %>
           <% if story.is_saved_by_cur_user %>
             <span> | </span><%= link_to "unsave", story_unsave_path(story.short_id),
-              :class => "saver" %>
+              :class => "underline-on-hover saver" %>
           <% else %>
             <span> | </span><%= link_to "save", story_save_path(story.short_id),
-              :class => "saver" %>
+              :class => "underline-on-hover saver" %>
           <% end %>
         <% end %>
         <% if story.url.present? %>
           <span> | </span>
           <span class="dropdown_parent">
             <input id="archive_<%= story.short_id %>" class="archive_button" type="checkbox">
-            <label for="archive_<%= story.short_id %>">archive</label>
+            <label class="underline-on-hover" for="archive_<%= story.short_id %>">archive</label>
             <div class="archive-dropdown">
               <a href="<%= story.archiveorg_url %>">Archive.org</a>
               <a href="<%= story.archivetoday_url %>">Archive.today</a>
@@ -174,7 +174,7 @@ class="story <%= story.vote && story.vote[:vote] == 1 ? "upvoted" : "" %>
         <% if !story.is_gone? || @user.try(:is_moderator?) %>
           <span class="comments_label">
             <span> | </span>
-            <a role="heading" aria-level="2" href="<%= story.comments_path %>">
+            <a class="underline-on-hover" role="heading" aria-level="2" href="<%= story.comments_path %>">
             <% if story.comments_count == 0 %>
               no comments</a>
             <% else %>
