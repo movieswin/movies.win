@@ -8,6 +8,7 @@
 <li id="story_<%= story.short_id %>" data-shortid="<%= story.short_id %>"
 class="story <%= story.vote && story.vote[:vote] == 1 ? "upvoted" : "" %>
 <%= story.vote && story.vote[:vote] == -1 ? "flagged" : "" %>
+<%= story_index = story_counter + 1 %>
 <%= story.score <= -1 ? "negative_1" : "" %>
 <%= story.score <= -3 ? "negative_3" : "" %>
 <%= story.score <= -5 ? "negative_5" : "" %>
@@ -15,6 +16,13 @@ class="story <%= story.vote && story.vote[:vote] == 1 ? "upvoted" : "" %>
 <%= story.is_saved_by_cur_user ? "saved" : "" %>
 <%= story.is_deleted? ? "deleted" : "" %>">
 <div class="story_liner h-entry">
+    <a class="story_index" title="Story Index">
+      <% if story_index < 10 %>
+        <div><%= story_index %><span style="color: transparent">0</span></div>
+      <% else %>
+        <div><%= story_index %></div>
+      <% end %>
+    </a>
     <% if @user %>
       <a class="voters story-voter" title="Add upvote">
         <div class="score story-voter"><%= story.show_score_to_user?(@user) ? story.score : '~' %></div>
@@ -73,7 +81,7 @@ class="story <%= story.vote && story.vote[:vote] == 1 ? "upvoted" : "" %>
             <% if ms.user_is_author? %>
               <span> authored by </span>
             <% else %>
-              <span> via </span>
+              <span> shared by</span>
             <% end %>
             <a href="/u/<%= ms.user.username %>" class="underline-on-hover u-author h-card <%=
               ms.html_class_for_user %>"><%= ms.user.username %></a>
@@ -102,22 +110,21 @@ class="story <%= story.vote && story.vote[:vote] == 1 ? "upvoted" : "" %>
         <% if story.user_is_author? %>
           <span> authored by </span>
         <% else %>
-          <span> via </span>
+          <span> shared by</span>
         <% end %>
         @<a class="underline-on-hover u-author h-card <%= story.html_class_for_user %>"><%=
           story.user.username %></a>
         <span> just now </span>
       <% else %>
-        <% if !story.is_gone? || @user.try(:is_moderator?) %>
-          <span class="comments_label">
-            <a class="underline-on-hover" role="heading" aria-level="2" href="<%= story.comments_path %>">
-            <% if story.comments_count == 0 %>
-              no comments</a>
-            <% else %>
-              <%= story.comments_count %> <%= 'comment'.pluralize(story.comments_count) %></a>
-            <% end %>
-          </span>
+        <% if story.user_is_author? %>
+          <span> authored by </span>
+        <% else %>
+          <span> shared by</span>
         <% end %>
+        <a href="/u/<%= story.user.username %>" class="underline-on-hover u-author h-card <%=
+          story.html_class_for_user %>">@<%= story.user.username %></a>
+
+        <%= time_ago_in_words_label(story.created_at) %>
         <% if story.is_editable_by_user?(@user) %>
           <span class="leading-slash"> \ </span>
           <a href="<%= edit_story_path(story.short_id) %>" class="underline-on-hover <%=
@@ -168,22 +175,23 @@ class="story <%= story.vote && story.vote[:vote] == 1 ? "upvoted" : "" %>
           </span>
         <% end %>
 
+        <% if !story.is_gone? || @user.try(:is_moderator?) %>
+          <span class="comments_label">
+              <span> \ </span>
+            <a class="underline-on-hover" role="heading" aria-level="2" href="<%= story.comments_path %>">
+            <% if story.comments_count == 0 %>
+              no comments</a>
+            <% else %>
+              <%= story.comments_count %> <%= 'comment'.pluralize(story.comments_count) %></a>
+            <% end %>
+          </span>
+        <% end %>
+
         <% if defined?(single_story) && single_story &&
         ((story.flags > 0 && @user && @user.is_moderator?) ||
         (story.flags >= 3 || story.score <= 0)) %>
           <span> \ <%= story.vote_summary_for(@user).downcase %> </span>
         <% end %>
-
-        \
-        <% if story.user_is_author? %>
-          <span> authored by </span>
-        <% else %>
-          <span> via </span>
-        <% end %>
-        <a href="/u/<%= story.user.username %>" class="underline-on-hover u-author h-card <%=
-          story.html_class_for_user %>">@<%= story.user.username %></a>
-
-        <%= time_ago_in_words_label(story.created_at) %>
       <% end %>
     </div>
   </div>
