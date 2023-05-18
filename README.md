@@ -130,6 +130,9 @@ Administrators can create and edit tags at `/tags`.
 - [x] restyle front page stories
 - [x] add 'load more' infinite scroll
 - [ ] restyle submission page (and all form elements)
+- [ ] on mobile condence listdetail with ellipsis icon dropdown (stimulus)
+- [ ] add favicon to listdetail for links
+- [ ] add ruby-oembed to listdetail for video and image links
 - [ ] restyle tag selection
 - [ ] replace nav with icons
 - [ ] remove pushover and email list
