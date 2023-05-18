@@ -11,7 +11,7 @@ gem "mysql2"
 gem 'scenic'
 gem 'scenic-mysql_adapter'
 gem "activerecord-typedstore"
-gem 'sprockets-rails', '2.3.3'
+gem 'sprockets-rails', '3.4.2'
 
 # js
 gem "jquery-rails", "~> 4.3"
@@ -48,6 +48,8 @@ gem "svg-graph", require: 'SVG/Graph/TimeSeries' # for charting, note workaround
 gem 'transaction_retry' # mitigate https://github.com/lobsters/lobsters-ansible/issues/39
 gem 'rack-attack' # rate-limiting
 
+gem 'turbo-rails' # turbo for dynamic html
+
 group :test, :development do
   gem 'capybara'
   gem 'database_cleaner'
@@ -64,3 +66,5 @@ group :test, :development do
   gem "webmock" # used to support vcr
   gem 'simplecov', require: false
 end
+
+gem "importmap-rails", "~> 1.1"

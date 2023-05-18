@@ -39,6 +39,7 @@
       title="<%= @comments_rss_link[:title] %>"
       href="<%= @comments_rss_link[:href] %>" />
   <% end %>
+    <%= javascript_importmap_tags %>
 </head>
 <body data-username='<%= @user.try(:username) %>'>
   <header id="nav">

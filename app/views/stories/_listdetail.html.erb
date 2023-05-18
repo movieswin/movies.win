@@ -8,7 +8,7 @@
 <li id="story_<%= story.short_id %>" data-shortid="<%= story.short_id %>"
 class="story <%= story.vote && story.vote[:vote] == 1 ? "upvoted" : "" %>
 <%= story.vote && story.vote[:vote] == -1 ? "flagged" : "" %>
-<%= story_index = story_counter + 1 %>
+<%= story_index = ((@page - 1) * @per_page) + (story_counter + 1) %>
 <%= story.score <= -1 ? "negative_1" : "" %>
 <%= story.score <= -3 ? "negative_3" : "" %>
 <%= story.score <= -5 ? "negative_5" : "" %>
@@ -16,13 +16,15 @@ class="story <%= story.vote && story.vote[:vote] == 1 ? "upvoted" : "" %>
 <%= story.is_saved_by_cur_user ? "saved" : "" %>
 <%= story.is_deleted? ? "deleted" : "" %>">
 <div class="story_liner h-entry">
-    <a class="story_index" title="Story Index">
-      <% if story_index < 10 %>
-        <div><%= story_index %><span style="color: transparent">0</span></div>
-      <% else %>
-        <div><%= story_index %></div>
-      <% end %>
-    </a>
+    <% if controller.controller_name == 'home' %>
+      <a class="story_index" title="Story Index">
+        <% if story_index < 10 %>
+          <div><%= story_index %><span style="color: transparent">0</span></div>
+        <% else %>
+          <div><%= story_index %></div>
+        <% end %>
+      </a>
+    <% end %>
     <% if @user %>
       <a class="voters story-voter" title="Add upvote">
         <div class="score story-voter"><%= story.show_score_to_user?(@user) ? story.score : '~' %></div>

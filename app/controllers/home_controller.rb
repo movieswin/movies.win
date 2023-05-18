@@ -6,6 +6,7 @@ class HomeController < ApplicationController
   # for rss feeds, load the user's tag filters if a token is passed
   before_action :find_user_from_rss_token, :only => [:index, :newest, :saved, :upvoted]
   before_action { @page = page }
+  before_action { @per_page = StoriesPaginator::STORIES_PER_PAGE }
   before_action :require_logged_in_user, :only => [:hidden, :saved, :upvoted]
   before_action :show_title_h1, only: [:top]
 
@@ -52,6 +53,9 @@ class HomeController < ApplicationController
     @root_path = true
 
     respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.append(:stories_list, partial: "stories/listdetail", collection: @stories, as: :story, locals: { page: @page})
+      end
       format.html { render :action => "index" }
       format.rss {
         if @user
