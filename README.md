@@ -126,9 +126,9 @@ Administrators can create and edit tags at `/tags`.
 
 #### movies.win TODOs
 
-- [ ] add popcorn voter styles
-- [ ] restyle front page stories
-- [ ] add 'load more' infinite scroll
+- [x] add popcorn voter styles
+- [x] restyle front page stories
+- [x] add 'load more' infinite scroll
 - [ ] restyle submission page (and all form elements)
 - [ ] restyle tag selection
 - [ ] replace nav with icons
