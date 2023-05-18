@@ -6,9 +6,9 @@
       (comment.score > Comment::COLLAPSE_SCORE && !flagged) ? "" : "checked" %>>
 
 <div id="c_<%= comment.short_id %>"
-data-shortid="<%= comment.short_id if comment.persisted? %>"
-class="comment <%= comment.current_vote ? (comment.current_vote[:vote] == 1 ?
-"upvoted" : "flagged") : "" %>
+     data-shortid="<%= comment.short_id if comment.persisted? %>"
+     class="comment <%= comment.current_vote ? (comment.current_vote[:vote] == 1 ?
+        "upvoted" : "flagged") : "" %>
   <%= comment.score < Comment::SCORE_RANGE_TO_HIDE.first ? "bad" : "" %>">
 
   <% if defined?(show_tree_lines) && show_tree_lines %>

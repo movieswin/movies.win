@@ -5,12 +5,12 @@
 <% if @replies.present? %>
   <ol class="comments comments1">
     <% @replies.each do |reply| %>
-      <li class="comments_subtree">
+      <li class="comments_subtree comment-background">
         <%= render "comments/comment",
             comment: reply.comment,
             show_story: true,
             is_unread: reply.is_unread,
-            show_tree_lines: false %>
+            show_tree_lines: true %>
         <ol class="comments"></ol>
       </li>
     <% end %>

@@ -47,8 +47,8 @@ light = <<-LIGHT
 	--color-box-border: #ccc;
 	--color-box-border-focus: #808080;
 
-	--color-button-bg: #fafafa;
-	--color-button-bg-shaded: #e6e6e6;
+	--color-button-bg: #ac130d;
+	--color-button-bg-shaded: #b34c49;
 
 	--color-table-header-bg: #eaeaea;
 	--color-table-header-border: #cacaca;
@@ -125,9 +125,6 @@ dark = <<-DARK
 	--color-box-bg-shaded-rgb: 32, 32, 32;
 	--color-box-border: #303030;
 	--color-box-border-focus: #808080;
-
-	--color-button-bg: #181818;
-	--color-button-bg-shaded: #242424;
 
 	--color-table-header-bg: #262626;
 	--color-table-header-border: #404040;
@@ -225,6 +222,7 @@ html {
 	--color-fg-affirmative: rgb(var(--palette-fg-affirmative));
 	--color-fg-author: rgb(var(--palette-fg-author));
 	--color-fg-shape: rgb(var(--palette-fg-shape));
+	--color-fg-text: rgb(255,255,255);
 }
 
 /* generics */
@@ -363,6 +361,12 @@ input[type="number"],
 input[type="url"],
 textarea {
 	border: 1px solid var(--color-box-border);
+	border-radius: .50rem;
+	position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+    margin-bottom: 0;
 }
 input:focus, textarea:focus {
 	outline-style: solid;
@@ -411,35 +415,102 @@ button:focus {
 	font-style: italic;
 }
 
+/*
+.main_button {
+  align-items: center;
+  background-clip: padding-box;
+  background-color: var(--color-button-bg);
+  border: 1px solid transparent;
+  border-radius: .50rem;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  margin: 0;
+  min-height: 1rem;
+  padding: calc(.75rem - 1px) calc(1.25rem - 1px);
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: auto;
+}
+
+.main_button:hover,
+.main_button:focus {
+  background-color: var(--color-button-bg-shaded);
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+}
+
+.main_button:hover {
+  transform: translateY(-1px);
+}
+
+.main_button:active {
+  background-color: var(--color-fg-accent);
+  box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+  transform: translateY(0);
+}
+*/
+
 button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"],
-a.button {
+a.button,
+.main_button {
 	background-color: var(--color-button-bg);
-	border-bottom-color: var(--color-fg-shape);
-	border: 1px solid var(--color-box-border);
-	color: var(--color-fg);
+	border: 1px solid transparent;
+	border-radius: .50rem;
+	color: var(--color-fg-text);
 	cursor: pointer;
-	display: inline-block;
-	line-height: 18px;
-	padding: 2px 10px 2px 10px;
-	text-align: center;
+	display: inline-flex;
+	font-size: 14px;
+	font-weight: 600;
+	justify-content: center;
+	line-height: 1.25;
+	margin: 0;
+	min-height: 1rem;
+	padding: calc(.75rem - 1px) calc(1.25rem - 1px);
+	position: relative;
 	text-decoration: none;
+	transition: all 250ms;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+	vertical-align: baseline;
+	width: auto;
 }
-button:first-child,
-input[type="button"]:first-child,
-input[type="reset"]:first-child,
-input[type="submit"]:first-child {
-	margin-left: 0;
-}
+
 button:hover,
+button:focus,
 input[type="button"]:hover,
+input[type="button"]:focus
 input[type="reset"]:hover,
-input[type="submit"]:hover {
-	color: var(--color-fg-contrast-10);
-	text-decoration: none;
-	background-color: var(--color-button-bg-shaded);
+input[type="reset"]:focus,
+input[type="submit"]:hover,
+input[type="submit"]:focus,
+.main_button:hover {
+  background-color: var(--color-button-bg-shaded);
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  transform: translateY(-1px);
+}
+
+button:active,
+input[type="button"]:active,
+input[type="reset"]:active,
+input[type="submit"]:active,
+.main_button:active {
+  background-color: var(--color-fg-accent);
+  box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+  transform: translateY(0);
 }
 
 select {
@@ -675,10 +746,10 @@ a.voters:hover,
 	margin-bottom: -3px;
 	margin-top: 17px;
 	text-align: center;
-	color: white;
+	color: var(--color-fg-text);
 	font-size: 12px;
 	font-weight:bold;
-	text-shadow: 2px 0 0 #ac130d, 0 -2px 0 #ac130d, 0 2px 0 #ac130d, -2px 0 0 #ac130d;
+	text-shadow: 2px 0 0 var(--color-fg-accent), 0 -2px 0 var(--color-fg-accent), 0 2px 0 var(--color-fg-accent), -2px 0 0 var(--color-fg-accent);
 }
 
 a.voters div.score {
@@ -686,14 +757,14 @@ a.voters div.score {
 	margin-bottom: -3px;
 	margin-top: 17px;
 	text-align: center;
-	color: white;
+	color: var(--color-fg-text);
 	font-size: 12px;
 	font-weight:bold;
 	text-shadow: 2px 0 0 #808080, 0 -2px 0 #808080, 0 2px 0 #808080, -2px 0 0 #808080;
 }
 
 a.voters:hover div.score {
-	text-shadow: 2px 0 0 #ac130d, 0 -2px 0 #ac130d, 0 2px 0 #ac130d, -2px 0 0 #ac130d;
+	text-shadow: 2px 0 0 var(--color-fg-accent), 0 -2px 0 var(--color-fg-accent), 0 2px 0 var(--color-fg-accent), -2px 0 0 var(--color-fg-accent);
 }
 
 li.story a.voters div.score {
@@ -852,6 +923,10 @@ li.comments_subtree {
 	position: relative;
 }
 
+.comment-background {
+	background-color: #d4d4d4;
+}
+
 li .comment_parent_tree_line {
 	position: absolute;
 	left: 30px;
@@ -976,50 +1051,6 @@ div.morelink a {
 	font-color: fcfcfc;
 	font-weight: bold;
 	text-decoration: none;
-}
-
-/* load_more button */
-.load_more {
-  align-items: center;
-  background-clip: padding-box;
-  background-color: #ac130d;
-  border: 1px solid transparent;
-  border-radius: .50rem;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  display: inline-flex;
-  font-size: 14px;
-  font-weight: 600;
-  justify-content: center;
-  line-height: 1.25;
-  margin: 0;
-  min-height: 1rem;
-  padding: calc(.75rem - 1px) calc(1.25rem - 1px);
-  position: relative;
-  text-decoration: none;
-  transition: all 250ms;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: baseline;
-  width: auto;
-}
-
-.load_more:hover,
-.load_more:focus {
-  background-color: #b34c49;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
-}
-
-.load_more:hover {
-  transform: translateY(-1px);
-}
-
-.load_more:active {
-  background-color: #ac130d;
-  box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
-  transform: translateY(0);
 }
 
 div.page_link_buttons {
@@ -1397,8 +1428,7 @@ table.data pre {
 
 .box label {
 	display: block;
-	float: left;
-	margin-bottom: 4px;
+	margin-bottom: 2px;
 }
 
 .box label.required {
@@ -1533,9 +1563,9 @@ div.flash-success h2 {
 #story_holder .ts-control {
 	background-color: var(--color-box-bg);
 	border: 1px solid var(--color-box-border);
-	border-radius: 0px;
 	box-shadow: none;
 	box-sizing: border-box;
+	border-radius: 0.50rem;
 	margin-bottom: 2px;
 	padding: 2px 0 0px 5px;
 	/* supposed to be inherited from body, but TS overwrites */
@@ -1790,7 +1820,9 @@ input[type="submit"].link_post.pushover_button {
 		padding-left: 25px;
 	}
 
-	ol.comments { margin-left: 10px }
+	ol.comments {
+		margin-left: 10px;
+	}
 	ol.stories,
 	div#inside > ol.comments {
 		margin: 0 0.5rem 0 -0.5rem;
@@ -1805,11 +1837,6 @@ input[type="submit"].link_post.pushover_button {
 	}
 	li .comment_folder.comment_folder_inline {
 		display: inline-block;
-	}
-
-	li .comment_parent_tree_line,
-	li .comment_siblings_tree_line {
-		border-left-color: transparent;
 	}
 
 	a.voters {
@@ -1874,7 +1901,7 @@ input[type="submit"].link_post.pushover_button {
 	}
 
 	ol.stories.list li.story .mobile_comments .comment-count {
-		color: white;
+		color: var(--color-fg-text);
 		font-size: 11px;
 		font-weight:bold;
 	}
