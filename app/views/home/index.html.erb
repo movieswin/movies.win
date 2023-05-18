@@ -4,6 +4,8 @@
   <%= render partial: "stories/listdetail", collection: @stories, as: :story %>
 </ol>
 
+<%= turbo_frame_tag "stories_list", src: '/', loading: :lazy %>
+
 <%= render partial: @below if @below %>
 <div class="morelink">
   <% if @show_more %>
@@ -11,8 +13,10 @@
         link_to raw("Load More"),
         @root_path ? "/page/#{@page + 1}" : { controller: controller_name, action: action_name, page: @page + 1 },
         data: {
-            turbo_stream: ""
-        }
+            turbo_stream: "",
+            page: @page
+        },
+        id: "load_more"
     %>
   <% end %>
 </div>

@@ -53,9 +53,10 @@ class HomeController < ApplicationController
     @root_path = true
 
     respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.append(:stories_list, partial: "stories/listdetail", collection: @stories, as: :story, locals: { page: @page, per_page: @per_page })
-      end
+      #format.turbo_stream do
+      #  render turbo_stream: turbo_stream.append(:stories_list, partial: "stories/listdetail", collection: @stories, as: :story, locals: { page: @page, per_page: @per_page })
+      #end
+      format.turbo_stream {}
       format.html { render :action => "index" }
       format.rss {
         if @user
