@@ -8,7 +8,9 @@
 <li id="story_<%= story.short_id %>" data-shortid="<%= story.short_id %>"
 class="story <%= story.vote && story.vote[:vote] == 1 ? "upvoted" : "" %>
 <%= story.vote && story.vote[:vote] == -1 ? "flagged" : "" %>
-<%= story_index = ((@page - 1) * @per_page) + (story_counter + 1) %>
+<% if controller.controller_name == 'home' %>
+  <%= story_index = ((@page - 1) * @per_page) + (story_counter + 1) %>
+<% end %>
 <%= story.score <= -1 ? "negative_1" : "" %>
 <%= story.score <= -3 ? "negative_3" : "" %>
 <%= story.score <= -5 ? "negative_5" : "" %>

@@ -51,41 +51,41 @@ class="comment <%= comment.current_vote ? (comment.current_vote[:vote] == 1 ?
       <% end %>
 
       <% if !comment.previewing %>
-        <a class="copy-link" href="<%= comment.path %>">link</a>
+        <a class="copy-link comment-underliner" href="<%= comment.path %>">copy link</a>
 
         <% if comment.is_editable_by_user?(@user) %>
           \
-          <a tabindex="0" class="comment_editor">edit</a>
+          <a tabindex="0" class="comment_editor comment-underliner">edit</a>
         <% end %>
 
         <% if comment.is_gone? && comment.is_undeletable_by_user?(@user) %>
           \
-          <a tabindex="0" class="comment_undeletor" href="#c_<%= comment.short_id %>">undelete</a>
+          <a tabindex="0" class="comment_undeletor comment-underliner" href="#c_<%= comment.short_id %>">undelete</a>
         <% elsif !comment.is_gone? && comment.is_deletable_by_user?(@user) %>
           \
           <% if @user && @user.is_moderator? && @user.id != comment.user_id %>
-            <a tabindex="0" class="comment_moderator" href="#c_<%= comment.short_id %>">delete</a>
+            <a tabindex="0" class="comment_moderator comment-underliner" href="#c_<%= comment.short_id %>">delete</a>
           <% else %>
-            <a tabindex="0" class="comment_deletor" href="#c_<%= comment.short_id %>">delete</a>
+            <a tabindex="0" class="comment_deletor comment-underliner" href="#c_<%= comment.short_id %>">delete</a>
           <% end %>
         <% elsif !comment.is_gone? && comment.is_disownable_by_user?(@user) %>
           \
-          <a tabindex="0" class="comment-disowner" href="#">disown</a>
+          <a tabindex="0" class="comment-disowner comment-underliner" href="#">disown</a>
         <% end %>
 
         <% if can_flag && !flagged %>
           <span class="dropdown_parent">
-            \ <a class="flagger">flag</a>
+            \ <a class="flagger comment-underliner">flag</a>
           </span>
         <% elsif flagged %>
-          \ <a class="flagger">unflag</a>
+          \ <a class="flagger comment-underliner">unflag</a>
         <% else %>
           <span class="flagger flagger_stub"></span>
         <% end %>
 
         <% if @user && !comment.is_gone? && comment.story.accepting_comments? %>
             \
-            <a tabindex="0" class="comment_replier" unselectable="on">reply</a>
+            <a tabindex="0" class="comment_replier comment-underliner" unselectable="on">reply</a>
         <% end %>
 
         <% if defined?(show_story) && show_story %>
@@ -109,7 +109,7 @@ class="comment <%= comment.current_vote ? (comment.current_vote[:vote] == 1 ?
       \
 
       <a href="/u/<%= comment.user.username %>"
-        class="<%= comment.html_class_for_user %>">@<%=
+        class="<%= comment.html_class_for_user %> comment-underliner">@<%=
         comment.user.username %></a>
 
       <% if comment.hat %>

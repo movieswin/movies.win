@@ -964,18 +964,64 @@ ol.stories.list div.story_content {
 }
 
 div.morelink {
-	float: left;
+	text-align: center;
 }
 
 div.morelink,
 div.page_link_buttons {
-	margin-top: 1.5em;
+	margin-top: 1em;
+	margin-bottom: 1em;
 }
 div.morelink a {
-	color: var(--color-fg-contrast-7-5);
+	font-color: fcfcfc;
 	font-weight: bold;
 	text-decoration: none;
 }
+
+/* load_more button */
+.load_more {
+  align-items: center;
+  background-clip: padding-box;
+  background-color: #ac130d;
+  border: 1px solid transparent;
+  border-radius: .50rem;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  margin: 0;
+  min-height: 1rem;
+  padding: calc(.75rem - 1px) calc(1.25rem - 1px);
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: auto;
+}
+
+.load_more:hover,
+.load_more:focus {
+  background-color: #b34c49;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+}
+
+.load_more:hover {
+  transform: translateY(-1px);
+}
+
+.load_more:active {
+  background-color: #ac130d;
+  box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+  transform: translateY(0);
+}
+
 div.page_link_buttons {
 	font-weight: bold;
 	margin-top: 2em;
@@ -1097,6 +1143,10 @@ div.comment_text code {
 #flag_dropdown a.cancel-reason {
 	background-color: var(--color-box-bg-shaded);
 	font-size: 8pt;
+}
+
+.comment-underliner:hover {
+	text-decoration: underline;
 }
 
 #modal_backdrop {

@@ -10,13 +10,14 @@
 <div class="morelink">
   <% if @show_more %>
     <%=
-        link_to raw("Load More"),
+        link_to raw("more"),
         @root_path ? "/page/#{@page + 1}" : { controller: controller_name, action: action_name, page: @page + 1 },
         data: {
             turbo_stream: "",
             page: @page
         },
-        id: "load_more"
+        id: "load_more",
+        class: "load_more button-5"
     %>
   <% end %>
 </div>
