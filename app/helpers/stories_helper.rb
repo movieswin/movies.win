@@ -1,7 +1,7 @@
 module StoriesHelper
   def show_guidelines?
     if !@user
-      return true
+      return false
     end
 
     if @user.stories_submitted_count <= 5
