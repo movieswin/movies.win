@@ -136,3 +136,7 @@ Administrators can create and edit tags at `/tags`.
 - [ ] restyle tag selection
 - [ ] replace nav with icons
 - [ ] remove pushover and email list
+- [ ] add auto grow to text area
+- [ ] add background styling to preview (make it more obvious there it is a preview)
+- [ ] implement passwordless email login (only)
+- [ ] update to have notification bell for all replies, votes and messages
