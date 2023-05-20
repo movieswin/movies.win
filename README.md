@@ -124,6 +124,32 @@ There's an external project [docker-lobsters](https://github.com/utensils/docker
 Basic moderation happens on-site, but most other administrative tasks require use of the rails console in production.
 Administrators can create and edit tags at `/tags`.
 
+#### Docker notes
+
+Build docker images:
+
+```sh
+docker build .
+```
+
+Start docker network:
+
+```sh
+docker compose up
+```
+
+Update Gemfile.lock:
+
+```sh
+docker-compose run web bundle
+```
+
+Open bash shell on web:
+
+```sh
+docker exec -it movieswin-web-1 bash
+```
+
 #### movies.win TODOs
 
 - [x] add popcorn voter styles

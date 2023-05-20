@@ -10,15 +10,15 @@ require:
   - rubocop-rspec
 AllCops:
   Include:
-    - '**/*.rb'
-    - '**/Rakefile'
-    - '**/config.ru'
-    - '**/*.rake'
+    - "**/*.rb"
+    - "**/Rakefile"
+    - "**/config.ru"
+    - "**/*.rake"
   Exclude:
     - Gemfile
-    - 'bin/**/*'
-    - 'db/**/*'
-    - 'vendor/**/*'
+    - "bin/**/*"
+    - "db/**/*"
+    - "vendor/**/*"
   UseCache: false
 
 # Cop configuration:

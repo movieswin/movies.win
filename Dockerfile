@@ -19,6 +19,7 @@ WORKDIR $RAILS_ROOT
 # Rails will be installed once you load it from the Gemfile
 # This will also ensure that gems are cached and onlu updated when
 # they change.
+
 COPY Gemfile ./
 COPY Gemfile.lock ./
 # Installs the Gem File.
